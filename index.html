@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap"
+      rel="stylesheet"
+    />
+    <title>German Vocabulary Practice</title>
+  </head>
+  <body class="#26a69a teal lighten-1">
+    <h1 class="center-align white-text">My German Vocabulary Practice App</h1>
+    <a
+      class="center-align waves-effect waves-light btn modal-trigger"
+      data-target="modal"
+      >Open My Vocabulary</a
+    >
+    <div class="container z-depth-3">
+      <h3 class="center-align">
+        Your Next Word Is: <span id="chosen-word"></span>
+      </h3>
+      <h5 class="center-align">
+        <span id="counter"></span> Correct Answers In a Row!
+      </h5>
+      <div id="message"></div>
+
+      <form class="col s12" id="form" autocomplete="off">
+        <div class="row">
+          <div class="input-field col s12">
+            <input
+              placeholder="English Translation"
+              id="english"
+              class="center-align"
+              type="text"
+              required
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input
+              placeholder="Der / Die / Das"
+              id="grammer"
+              class="center-align"
+              type="text"
+              required
+            />
+          </div>
+        </div>
+        <div class="row center-align">
+          <div class="input-field col s12">
+            <button
+              class="btn waves-effect waves-light"
+              type="submit"
+              id="submit-button"
+              name="action"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <form class="col s12" name="addForm" id="add-form" autocomplete="off">
+        <div id="add">
+          <h5 class="center-align">Add a New Word To Your Vocabulary</h5>
+          <div class="row">
+            <div class="input-field col s12">
+              <input
+                placeholder="German Word"
+                id="new-german"
+                class="center-align"
+                type="text"
+                required
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input
+                placeholder="English Translation"
+                id="new-english"
+                class="center-align"
+                type="text"
+                required
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input
+                placeholder="Der / Die / Das"
+                name="newGrammer"
+                id="new-grammer"
+                class="center-align"
+                type="text"
+                required
+              />
+            </div>
+          </div>
+          <div class="row center-align">
+            <div class="input-field col s12">
+              <button
+                class="btn waves-effect waves-light"
+                type="submit"
+                id="add-button"
+                name="action"
+              >
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Modal Structure -->
+
+    <!-- Modal Structure -->
+    <div id="modal" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        <h4 class="center-align">My Vocabulary</h4>
+        <table class="table table-striped mt-5">
+          <thead>
+            <tr>
+              <th>German Word</th>
+              <th>English Translation</th>
+              <th>Der / Die / Das</th>
+            </tr>
+          </thead>
+          <tbody id="words-list"></tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat"
+          >Close</a
+        >
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+      integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="./index.js"></script>
+  </body>
+</html>
