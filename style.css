@@ -79,7 +79,7 @@ table {
 }
 
 table tr:not(:first-child) {
-  counter-increment: rowNumber;
+  counter-increment: rowNumber + 1;
 }
 
 table tr td:first-child::before {
