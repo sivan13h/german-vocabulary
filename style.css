@@ -2,13 +2,19 @@
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
   font-family: "Architects Daughter", cursive;
   background: #4ecdc4;
-  background: -webkit-gradient(linear, left top, right top, from(#556270), to(#4ecdc4));
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#556270),
+    to(#4ecdc4)
+  );
   background: linear-gradient(to right, #556270, #4ecdc4);
 }
 
@@ -66,6 +72,20 @@ h5 {
 
 #add-form {
   margin-top: 3rem;
+}
+
+table {
+  counter-reset: rowNumber + 1;
+}
+
+table tr:not(:first-child) {
+  counter-increment: rowNumber;
+}
+
+table tr td:first-child::before {
+  content: counter(rowNumber) ".";
+  min-width: 1em;
+  margin-right: 0.5em;
 }
 
 @media screen and (max-width: 769px) {
