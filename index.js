@@ -58,6 +58,7 @@ class UI {
   }
 
   static makeTable() {
+    wordsTable.innerHTML= ''
     wordsArr.forEach((word) => UI.addWordToTable(word));
   }
 
@@ -92,6 +93,7 @@ class UI {
 // Logic Class -------------------------------------------------
 class Logic {
   static addNewWord() {
+  
     let newWord = new Word(
       capitalizeFirstLetter(newGerman.value),
       capitalizeFirstLetter(newEnglish.value),
@@ -107,8 +109,9 @@ class Logic {
       // and if not add:
     } else {
       wordsArr.push(newWord);
+      wordsArr = wordsArr.sort((a, b) => a.german.localeCompare(b.german))
       localStorage.setItem("words", JSON.stringify(wordsArr));
-      UI.addWordToTable(newWord);
+      UI.makeTable();
     }
   }
 
@@ -129,11 +132,13 @@ class Logic {
     if (
       grammerValue.toUpperCase() !== "DER" &&
       grammerValue.toUpperCase() !== "DAS" &&
-      grammerValue.toUpperCase() !== "DIE"
+      grammerValue.toUpperCase() !== "DIE" &&
+      grammerValue !== "" 
     ) {
       alert("Please Insert Der / Die / Das");
       return false;
     }
+   
   }
 }
 
