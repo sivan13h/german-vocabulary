@@ -25,6 +25,10 @@ h5 {
   color: green;
 }
 
+#record {
+  color: orangered;
+}
+
 #form {
   border-bottom: 1px solid gray;
   padding-bottom: 2rem;
@@ -61,8 +65,6 @@ h5 {
 #add-form {
   margin-top: 3rem;
 }
-
-
 
 @media screen and (max-width: 769px) {
   h1 {

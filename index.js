@@ -10,9 +10,11 @@ const newGrammer = document.querySelector("#new-grammer");
 const inputs = document.querySelectorAll("input");
 const wordsTable = document.querySelector("#words-list");
 const counterDisplay = document.querySelector("#counter");
+const recordDisplay = document.querySelector('#record');
 
 let currentWord = "";
 counterDisplay.textContent = 0;
+recordDisplay.textContent = localStorage.getItem('record')
 let wordsArr = JSON.parse(localStorage.getItem("words")) || [];
 
 // WORD CLASS ---------------------------------------------------
@@ -123,8 +125,14 @@ class Logic {
       UI.showMessage("success");
       UI.resetForm();
     } else {
+      if(counterDisplay.textContent > localStorage.getItem('record')){
+      localStorage.setItem("record", counterDisplay.textContent);
+      recordDisplay.textContent = localStorage.getItem('record');
+      }
       UI.showMessage("failure");
     }
+
+  
   }
 
   static validateForm() {
