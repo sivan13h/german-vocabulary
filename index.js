@@ -97,9 +97,9 @@ class Logic {
   static addNewWord() {
   
     let newWord = new Word(
-      capitalizeFirstLetter(newGerman.value),
-      capitalizeFirstLetter(newEnglish.value),
-      capitalizeFirstLetter(newGrammer.value)
+      capitalizeFirstLetter(newGerman.value).trim(),
+      capitalizeFirstLetter(newEnglish.value).trim(),
+      capitalizeFirstLetter(newGrammer.value).trim()
     );
     // check if word already exists?
     if (
@@ -119,8 +119,8 @@ class Logic {
 
   static checkAnswers() {
     if (
-      englishInput.value.toUpperCase() === currentWord.english.toUpperCase() &&
-      grammerInput.value.toUpperCase() === currentWord.grammer.toUpperCase()
+      englishInput.value.toUpperCase().trim() === currentWord.english.toUpperCase().trim() &&
+      grammerInput.value.toUpperCase().trim() === currentWord.grammer.toUpperCase().trim()
     ) {
       UI.showMessage("success");
       UI.resetForm();
@@ -138,9 +138,9 @@ class Logic {
   static validateForm() {
     const grammerValue = document.forms["addForm"]["newGrammer"].value;
     if (
-      grammerValue.toUpperCase() !== "DER" &&
-      grammerValue.toUpperCase() !== "DAS" &&
-      grammerValue.toUpperCase() !== "DIE" &&
+      grammerValue.toUpperCase().trim() !== "DER" &&
+      grammerValue.toUpperCase().trim() !== "DAS" &&
+      grammerValue.toUpperCase().trim() !== "DIE" &&
       grammerValue !== "" 
     ) {
       alert("Please Insert Der / Die / Das");
@@ -183,9 +183,38 @@ wordsTable.addEventListener("click", function (e) {
   }
 });
 
+document.querySelector('#searchInput').addEventListener('keyup', searchInVoca);
+
 // helpers ------------------------------------
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
+
+function searchInVoca() {
+  // Declare variables
+  let input, filter, table, tr, tdGerman, tdEnglish, i, txtValue;
+  input = document.getElementById("searchInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    tdGerman = tr[i].getElementsByTagName("td")[0];
+    tdEnglish = tr[i].getElementsByTagName("td")[1];
+    if (tdGerman || tdEnglish) {
+      txtValueGerman = tdGerman.textContent || tdGerman.innerText;
+      txtValueEnglish = tdEnglish.textContent || tdEnglish.innerText;
+      if (
+      txtValueGerman.toUpperCase().indexOf(filter) > -1 ||
+      txtValueEnglish.toUpperCase().indexOf(filter) > -1 
+      ) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
 }
 // materialize modal jquery ------------------------------
 $(document).ready(function () {

@@ -24,11 +24,11 @@ h5 {
 }
 
 #counter {
-  color: green;
+  color: #20c020;
 }
 
 #record {
-  color: orangered;
+  color: #1f6eaf;
 }
 
 #form {
@@ -38,6 +38,13 @@ h5 {
 
 .row {
   margin-bottom: 10px !important;
+}
+
+#searchInput {
+  display: block;
+  width: 70%;
+  margin: 0 auto;
+  text-align: center;
 }
 
 /* label color */
