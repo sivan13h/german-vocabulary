@@ -47,6 +47,20 @@ h5 {
   text-align: center;
 }
 
+table {
+  counter-reset: rowNumber;
+}
+
+table tr > td:first-child {
+  counter-increment: rowNumber;
+}
+
+table tr td:first-child::before {
+  content: counter(rowNumber);
+  min-width: 1em;
+  margin-right: 0.5em;
+}
+
 /* label color */
 .input-field {
   text-align: center;
