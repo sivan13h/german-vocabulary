@@ -1,6 +1,6 @@
 const chosenWordDisplay = document.querySelector("#chosen-word");
 const form = document.querySelector("#form");
-const englishInput = document.querySelector("#english");
+const translationInput = document.querySelector("#english");
 const grammerInput = document.querySelector("#grammer");
 const messageDiv = document.querySelector("#message");
 const addForm = document.querySelector("#add-form");
@@ -26,12 +26,17 @@ class Word {
 
 // UI Class -----------------------------------------------------
 class UI {
-  static displayChosenWord() {
+  static displayChosenWord(lang) {
     if (wordsArr.length === 0) {
       chosenWordDisplay.textContent = "Please add first word";
     } else {
+      
       const randomWord = wordsArr[Math.floor(Math.random() * wordsArr.length)];
-      chosenWordDisplay.innerHTML = capitalizeFirstLetter(randomWord.german);
+      if (lang === 'english'){
+      chosenWordDisplay.innerHTML = capitalizeFirstLetter(randomWord.english);
+      } else {
+        chosenWordDisplay.innerHTML = capitalizeFirstLetter(randomWord.german);
+      }
       currentWord = randomWord;
     }
   }
@@ -87,7 +92,11 @@ class UI {
   }
 
   static resetForm() {
-    UI.displayChosenWord();
+    if(germanModeButton.dataset.chosen === 'true'){
+    UI.displayChosenWord('german');
+    } else {
+      UI.displayChosenWord('english');
+    }
     inputs.forEach((input) => (input.value = ""));
   }
 }
@@ -118,9 +127,16 @@ class Logic {
   }
 
   static checkAnswers() {
+   
     if (
-      englishInput.value.toUpperCase().trim() === currentWord.english.toUpperCase().trim() &&
+      (germanModeButton.dataset.chosen === 'true' &&
+      translationInput.value.toUpperCase().trim() === currentWord.english.toUpperCase().trim() &&
       grammerInput.value.toUpperCase().trim() === currentWord.grammer.toUpperCase().trim()
+      ) ||
+      (germanModeButton.dataset.chosen === 'false' &&
+      translationInput.value.toUpperCase().trim() === currentWord.german.toUpperCase().trim() &&
+      grammerInput.value.toUpperCase().trim() === currentWord.grammer.toUpperCase().trim()
+      )
     ) {
       UI.showMessage("success");
       UI.resetForm();
@@ -159,7 +175,7 @@ form.addEventListener("submit", function (e) {
   e.preventDefault();
   if (wordsArr.length !== 0) {
     Logic.checkAnswers();
-    englishInput.select();
+    translationInput.select();
   } else {
     alert("please add your first word to the vocabulary first");
   }
@@ -182,6 +198,21 @@ wordsTable.addEventListener("click", function (e) {
     );
   }
 });
+
+const englishModeButton = document.querySelector('#english-mode');
+const germanModeButton = document.querySelector('#german-mode');
+
+
+englishModeButton.addEventListener('click', function () {
+  this.dataset.chosen = 'true';
+  germanModeButton.dataset.chosen = 'false'
+  UI.displayChosenWord('english');
+})
+germanModeButton.addEventListener('click', function () {
+  this.dataset.chosen = 'true'
+  englishModeButton.dataset.chosen = 'false'
+  UI.displayChosenWord('german');
+})
 
 document.querySelector('#searchInput').addEventListener('keyup', searchInVoca);
 

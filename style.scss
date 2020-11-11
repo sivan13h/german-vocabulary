@@ -11,6 +11,15 @@ body {
   background: linear-gradient(to right, #556270, #4ecdc4);
 }
 
+.mode-buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  button{
+    margin: 0 10px;
+  }
+}
+
 .modal-trigger {
   display: block !important;
   max-width: 500px;
