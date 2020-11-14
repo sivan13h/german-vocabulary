@@ -17,6 +17,9 @@ counterDisplay.textContent = 0;
 recordDisplay.textContent = localStorage.getItem('record')
 let wordsArr = JSON.parse(localStorage.getItem("words")) || [];
 
+window.addEventListener('load', () => {
+  registerSW();
+})
 // WORD CLASS ---------------------------------------------------
 class Word {
   constructor(german, english, grammer) {
@@ -251,3 +254,15 @@ function searchInVoca() {
 $(document).ready(function () {
   $(".modal").modal();
 });
+
+
+// PWA -----------------
+async function registerSW(){
+  if('serviceWorker' in navigator){
+    try{
+      await navigator.serviceWorker.register('./sw.js');
+    } catch (e){
+      console.log('SW registration failed');
+    }
+  }
+}
