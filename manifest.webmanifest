@@ -1,7 +1,7 @@
 {
     "name": "German vocabulary practice",
     "short_name": "German voca",
-    "start_url": ".",
+    "start_url": "./index.html",
     "display": "standalone",
     "background_color": "#fff",
     "description": "myapp",
