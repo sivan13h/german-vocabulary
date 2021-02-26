@@ -10,16 +10,16 @@ const newGrammer = document.querySelector("#new-grammer");
 const inputs = document.querySelectorAll("input");
 const wordsTable = document.querySelector("#words-list");
 const counterDisplay = document.querySelector("#counter");
-const recordDisplay = document.querySelector('#record');
+const recordDisplay = document.querySelector("#record");
 
 let currentWord = "";
 counterDisplay.textContent = 0;
-recordDisplay.textContent = localStorage.getItem('record')
+recordDisplay.textContent = localStorage.getItem("record");
 let wordsArr = JSON.parse(localStorage.getItem("words")) || [];
 
-window.addEventListener('load', () => {
+window.addEventListener("load", () => {
   registerSW();
-})
+});
 // WORD CLASS ---------------------------------------------------
 class Word {
   constructor(german, english, grammer) {
@@ -33,10 +33,9 @@ class UI {
     if (wordsArr.length === 0) {
       chosenWordDisplay.textContent = "Please add first word";
     } else {
-      
       const randomWord = wordsArr[Math.floor(Math.random() * wordsArr.length)];
-      if (lang === 'english'){
-      chosenWordDisplay.innerHTML = capitalizeFirstLetter(randomWord.english);
+      if (lang === "english") {
+        chosenWordDisplay.innerHTML = capitalizeFirstLetter(randomWord.english);
       } else {
         chosenWordDisplay.innerHTML = capitalizeFirstLetter(randomWord.german);
       }
@@ -68,7 +67,7 @@ class UI {
   }
 
   static makeTable() {
-    wordsTable.innerHTML= ''
+    wordsTable.innerHTML = "";
     wordsArr.forEach((word) => UI.addWordToTable(word));
   }
 
@@ -95,10 +94,10 @@ class UI {
   }
 
   static resetForm() {
-    if(germanModeButton.dataset.chosen === 'true'){
-    UI.displayChosenWord('german');
+    if (germanModeButton.dataset.chosen === "true") {
+      UI.displayChosenWord("german");
     } else {
-      UI.displayChosenWord('english');
+      UI.displayChosenWord("english");
     }
     inputs.forEach((input) => (input.value = ""));
   }
@@ -107,7 +106,6 @@ class UI {
 // Logic Class -------------------------------------------------
 class Logic {
   static addNewWord() {
-  
     let newWord = new Word(
       capitalizeFirstLetter(newGerman.value).trim(),
       capitalizeFirstLetter(newEnglish.value).trim(),
@@ -123,35 +121,37 @@ class Logic {
       // and if not add:
     } else {
       wordsArr.push(newWord);
-      wordsArr = wordsArr.sort((a, b) => a.german.localeCompare(b.german))
+      wordsArr = wordsArr.sort((a, b) => a.german.localeCompare(b.german));
       localStorage.setItem("words", JSON.stringify(wordsArr));
       UI.makeTable();
     }
   }
 
   static checkAnswers() {
-   
     if (
-      (germanModeButton.dataset.chosen === 'true' &&
-      translationInput.value.toUpperCase().trim() === currentWord.english.toUpperCase().trim() &&
-      grammerInput.value.toUpperCase().trim() === currentWord.grammer.toUpperCase().trim()
-      ) ||
-      (germanModeButton.dataset.chosen === 'false' &&
-      translationInput.value.toUpperCase().trim() === currentWord.german.toUpperCase().trim() &&
-      grammerInput.value.toUpperCase().trim() === currentWord.grammer.toUpperCase().trim()
-      )
+      (germanModeButton.dataset.chosen === "true" &&
+        translationInput.value.toUpperCase().trim() ===
+          currentWord.english.toUpperCase().trim() &&
+        grammerInput.value.toUpperCase().trim() ===
+          currentWord.grammer.toUpperCase().trim()) ||
+      (germanModeButton.dataset.chosen === "false" &&
+        translationInput.value.toUpperCase().trim() ===
+          currentWord.german.toUpperCase().trim() &&
+        grammerInput.value.toUpperCase().trim() ===
+          currentWord.grammer.toUpperCase().trim())
     ) {
       UI.showMessage("success");
       UI.resetForm();
     } else {
-      if(counterDisplay.textContent > localStorage.getItem('record')){
-      localStorage.setItem("record", counterDisplay.textContent);
-      recordDisplay.textContent = localStorage.getItem('record');
+      if (
+        parseFloat(counterDisplay.textContent) >
+        parseFloat(localStorage.getItem("record"))
+      ) {
+        localStorage.setItem("record", counterDisplay.textContent);
+        recordDisplay.textContent = localStorage.getItem("record");
       }
       UI.showMessage("failure");
     }
-
-  
   }
 
   static validateForm() {
@@ -160,12 +160,11 @@ class Logic {
       grammerValue.toUpperCase().trim() !== "DER" &&
       grammerValue.toUpperCase().trim() !== "DAS" &&
       grammerValue.toUpperCase().trim() !== "DIE" &&
-      grammerValue !== "" 
+      grammerValue !== ""
     ) {
       alert("Please Insert Der / Die / Das");
       return false;
     }
-   
   }
 }
 
@@ -202,22 +201,21 @@ wordsTable.addEventListener("click", function (e) {
   }
 });
 
-const englishModeButton = document.querySelector('#english-mode');
-const germanModeButton = document.querySelector('#german-mode');
+const englishModeButton = document.querySelector("#english-mode");
+const germanModeButton = document.querySelector("#german-mode");
 
+englishModeButton.addEventListener("click", function () {
+  this.dataset.chosen = "true";
+  germanModeButton.dataset.chosen = "false";
+  UI.displayChosenWord("english");
+});
+germanModeButton.addEventListener("click", function () {
+  this.dataset.chosen = "true";
+  englishModeButton.dataset.chosen = "false";
+  UI.displayChosenWord("german");
+});
 
-englishModeButton.addEventListener('click', function () {
-  this.dataset.chosen = 'true';
-  germanModeButton.dataset.chosen = 'false'
-  UI.displayChosenWord('english');
-})
-germanModeButton.addEventListener('click', function () {
-  this.dataset.chosen = 'true'
-  englishModeButton.dataset.chosen = 'false'
-  UI.displayChosenWord('german');
-})
-
-document.querySelector('#searchInput').addEventListener('keyup', searchInVoca);
+document.querySelector("#searchInput").addEventListener("keyup", searchInVoca);
 
 // helpers ------------------------------------
 function capitalizeFirstLetter(string) {
@@ -240,8 +238,8 @@ function searchInVoca() {
       txtValueGerman = tdGerman.textContent || tdGerman.innerText;
       txtValueEnglish = tdEnglish.textContent || tdEnglish.innerText;
       if (
-      txtValueGerman.toUpperCase().indexOf(filter) > -1 ||
-      txtValueEnglish.toUpperCase().indexOf(filter) > -1 
+        txtValueGerman.toUpperCase().indexOf(filter) > -1 ||
+        txtValueEnglish.toUpperCase().indexOf(filter) > -1
       ) {
         tr[i].style.display = "";
       } else {
@@ -255,16 +253,13 @@ $(document).ready(function () {
   $(".modal").modal();
 });
 
-
 // PWA -----------------
-async function registerSW(){
-  if('serviceWorker' in navigator){
-    try{
-      await navigator.serviceWorker.register('./sw.js', {
-        
-      });
-    } catch (e){
-      console.log('SW registration failed');
+async function registerSW() {
+  if ("serviceWorker" in navigator) {
+    try {
+      await navigator.serviceWorker.register("./sw.js", {});
+    } catch (e) {
+      console.log("SW registration failed");
     }
   }
 }
