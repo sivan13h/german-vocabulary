@@ -144,8 +144,8 @@ class Logic {
       UI.resetForm();
     } else {
       if (
-        parseFloat(counterDisplay.textContent) >
-        parseFloat(localStorage.getItem("record"))
+        parseInt(counterDisplay.textContent) >
+        parseInt(localStorage.getItem("record"))
       ) {
         localStorage.setItem("record", counterDisplay.textContent);
       }
