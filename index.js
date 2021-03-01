@@ -148,8 +148,8 @@ class Logic {
         parseFloat(localStorage.getItem("record"))
       ) {
         localStorage.setItem("record", counterDisplay.textContent);
-        recordDisplay.textContent = localStorage.getItem("record");
       }
+      recordDisplay.textContent = localStorage.getItem("record");
       UI.showMessage("failure");
     }
   }
